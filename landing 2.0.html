@@ -288,6 +288,30 @@
     padding:9px 12px;font-size:11.5px;color:var(--text-tertiary);
     font-family:ui-monospace,'SF Mono','Roboto Mono',Menlo,Consolas,monospace;
   }
+  .locked-visual{
+    aspect-ratio:500/647;position:relative;overflow:hidden;
+    background:var(--bg-elevated-2);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .locked-lines{
+    position:absolute;inset:16px;display:flex;flex-direction:column;gap:9px;
+    filter:blur(3px);opacity:0.4;
+  }
+  .locked-lines span{display:block;height:9px;border-radius:5px;background:var(--text-tertiary);}
+  .locked-lines span:nth-child(1){width:75%;}
+  .locked-lines span:nth-child(2){width:92%;}
+  .locked-lines span:nth-child(3){width:58%;}
+  .locked-lines span:nth-child(4){width:82%;}
+  .locked-lines span:nth-child(5){width:66%;}
+  .locked-lines span:nth-child(6){width:45%;}
+  .lock-badge{
+    position:relative;z-index:1;
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(10,10,11,0.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.14);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;
+  }
 
   /* ---------- who this is for ---------- */
   .who-list{
@@ -588,7 +612,15 @@
     <div class="preview-item"><img src="https://public-files.gumroad.com/0z84mgmkyb66tya1e3jb5uw9cyhd" alt="Blueprint page" loading="lazy"><div class="cap">The Blueprint</div></div>
     <div class="preview-item"><img src="https://public-files.gumroad.com/7927upidk4n3n7j31gquwm0jqanj" alt="Prompt pairs page" loading="lazy"><div class="cap">100 Prompt Pairs</div></div>
     <div class="preview-item"><img src="https://public-files.gumroad.com/0httvlit7mlw7o1m5xaiiuiplapy" alt="Cheat sheet page" loading="lazy"><div class="cap">Formula Cheat Sheet</div></div>
-    <div class="preview-item"><img src="https://public-files.gumroad.com/cnlicmqkp2p8hf579o7chqd9i1lm" alt="Checklist page" loading="lazy"><div class="cap">Posting Checklist</div></div>
+    <div class="preview-item preview-locked">
+      <div class="locked-visual" aria-hidden="true">
+        <div class="locked-lines"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="lock-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+      </div>
+      <div class="cap">Posting Checklist — unlocked inside</div>
+    </div>
   </div>
 </section>
 
@@ -642,8 +674,9 @@
     <p>A selection of Rainlit Rooms videos built entirely with the system inside this bundle. Click any image to enlarge.</p>
   </div>
   <div class="gallery reveal" id="gallery">
-    <div class="gallery-item"><img src="https://public-files.gumroad.com/stfmdsoh6pat2h2rgco975oczll8" alt="Family and cat sleeping on a train beside a lakeside lighthouse" loading="lazy"><span class="views">310K views</span></div>
     <div class="gallery-item"><img src="https://public-files.gumroad.com/97bq9lo55vvvawmju1lymc7dvr4v" alt="Kids sleeping in a cozy campervan driving along a rainy coastal road" loading="lazy"><span class="views">5M views</span></div>
+    <div class="gallery-item"><img src="https://public-files.gumroad.com/2q8mz5ntzlnfmg0jjxylomhwonb0" alt="Family sleeping on a train under a starry glass-domed ceiling in the mountains" loading="lazy"><span class="views">1.6M views</span></div>
+    <div class="gallery-item"><img src="https://public-files.gumroad.com/2nl8t6c730u0dtldw260u4u0068s" alt="Family sleeping on a train overlooking a snowy mountain village at night" loading="lazy"><span class="views">1.1M views</span></div>
   </div>
 </section>
 
