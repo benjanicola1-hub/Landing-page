@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DermaVisuals AI — Founding Beta Access</title>
+<meta name="description" content="DermaVisuals AI creates cinematic, ready-to-post educational videos for dermatology practices. Apply for a free week of founding beta access — no payment, no commitment.">
+<meta name="theme-color" content="#05080d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     CONFIG NOTE
+     Business-specific values (logo mark, Instagram, email,
+     form endpoint) are centralized in SITE_CONFIG at the top
+     of the <script> block near the bottom of this file.
+     Update values there — the markup pulls from it automatically.
+     ========================================================= */
+
+  :root{
+    --bg:#05080d;
+    --bg-alt:#070b12;
+    --surface:rgba(255,255,255,0.035);
+    --surface-strong:rgba(255,255,255,0.065);
+    --border:rgba(255,255,255,0.09);
+    --border-strong:rgba(255,255,255,0.18);
+    --text-primary:#F4F8FA;
+    --text-secondary:#9FB0C0;
+    --text-tertiary:#647485;
+    --accent:#28E3FF;
+    --accent-2:#3E8DFF;
+    --accent-soft:rgba(40,227,255,0.12);
+    --accent-line:rgba(40,227,255,0.4);
+    --on-accent:#04141C;
+    --radius-lg:26px;
+    --radius-md:18px;
+    --radius-sm:12px;
+    --maxw:1180px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    padding-bottom:72px; /* room for mobile sticky CTA */
+  }
+  @media(min-width:900px){ body{ padding-bottom:0; } }
+
+  h1,h2,h3{ letter-spacing:-0.03em; font-weight:800; line-height:1.08; }
+  p{ line-height:1.6; }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  button{ font-family:inherit; }
+  ul{ list-style:none; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; position:relative; }
+  @media(min-width:768px){ .wrap{ padding:0 40px; } }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px; border-radius:6px;
+  }
+
+  .mono{
+    font-family:ui-monospace,'SF Mono','Roboto Mono',Menlo,Consolas,monospace;
+    letter-spacing:0.06em; text-transform:uppercase;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- background glows ---------- */
+  .glow{ position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; opacity:0.55; }
+  .glow-cyan{ background:radial-gradient(circle, rgba(40,227,255,0.35), transparent 70%); }
+  .glow-blue{ background:radial-gradient(circle, rgba(62,141,255,0.3), transparent 70%); }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(5,8,13,0.72);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{ max-width:var(--maxw); margin:0 auto; padding:16px 22px; display:flex; align-items:center; justify-content:space-between; }
+  @media(min-width:768px){ .nav-inner{ padding:18px 40px; } }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:800; font-size:15px; letter-spacing:-0.01em; }
+  .brand-mark{
+    width:30px; height:30px; border-radius:9px; flex:none;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 24px rgba(40,227,255,0.35);
+  }
+  .brand-mark svg{ width:16px; height:16px; }
+  .nav-links{ display:none; align-items:center; gap:28px; font-size:14px; color:var(--text-secondary); }
+  @media(min-width:900px){ .nav-links{ display:flex; } }
+  .nav-links a:hover{ color:var(--text-primary); }
+  .nav-cta{
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    color:var(--on-accent); font-weight:700; font-size:13.5px;
+    padding:10px 18px; border-radius:100px; white-space:nowrap;
+    transition:transform .2s ease, box-shadow .2s ease;
+    box-shadow:0 0 0 rgba(40,227,255,0);
+  }
+  .nav-cta:hover{ transform:translateY(-1px); box-shadow:0 8px 24px -8px rgba(40,227,255,0.6); }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    font-weight:700; font-size:15px; border-radius:100px; padding:16px 30px;
+    transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease, background .2s ease;
+    cursor:pointer; border:none;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    color:var(--on-accent);
+    box-shadow:0 12px 30px -10px rgba(40,227,255,0.45);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 36px -8px rgba(40,227,255,0.6); }
+  .btn-primary:disabled{ opacity:0.6; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-secondary{
+    background:transparent; color:var(--text-primary); border:1px solid var(--border-strong);
+  }
+  .btn-secondary:hover{ background:var(--surface); border-color:var(--text-tertiary); }
+  .btn-lg{ padding:17px 34px; font-size:16px; }
+  .btn-row{ display:flex; flex-wrap:wrap; gap:14px; }
+
+  /* ---------- eyebrow / badges ---------- */
+  .eyebrow{
+    font-size:12px; color:var(--accent); margin-bottom:16px;
+    display:flex; align-items:center; gap:10px; font-weight:600;
+  }
+  .eyebrow::before{ content:""; width:16px; height:1px; background:var(--accent-line); }
+  .badge-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--accent-soft); border:1px solid var(--accent-line);
+    color:var(--accent); font-weight:700; font-size:12.5px;
+    padding:8px 16px; border-radius:100px;
+  }
+  .trust-row{
+    display:flex; flex-wrap:wrap; gap:18px; margin-top:22px;
+    font-size:12.5px; color:var(--text-tertiary);
+  }
+  .trust-row span{ display:flex; align-items:center; gap:7px; }
+  .trust-row svg{ color:var(--accent); flex:none; }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:128px 0 64px; z-index:1; }
+  @media(min-width:960px){ .hero{ padding:160px 0 88px; } }
+  .hero-grid{ display:flex; flex-direction:column; gap:48px; }
+  @media(min-width:960px){ .hero-grid{ flex-direction:row; align-items:center; gap:56px; } }
+  .hero-copy{ max-width:640px; }
+  .hero-visual-col{ flex:none; width:100%; }
+  @media(min-width:960px){ .hero-visual-col{ width:440px; } }
+
+  .hero h1{ font-size:36px; margin-bottom:18px; }
+  @media(min-width:600px){ .hero h1{ font-size:46px; } }
+  @media(min-width:960px){ .hero h1{ font-size:56px; } }
+  .hero p.sub{ font-size:17px; color:var(--text-secondary); max-width:520px; margin-bottom:32px; }
+  @media(min-width:960px){ .hero p.sub{ font-size:18.5px; } }
+
+  /* abstract skin-layer visual placeholder */
+  .hero-visual{
+    position:relative; border-radius:var(--radius-lg); overflow:hidden;
+    border:1px solid var(--border-strong);
+    aspect-ratio:4/5;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(40,227,255,0.25), transparent 55%),
+      radial-gradient(circle at 75% 70%, rgba(62,141,255,0.3), transparent 50%),
+      linear-gradient(160deg, #0a1420 0%, #060a10 100%);
+    box-shadow:0 40px 100px -40px rgba(0,0,0,0.8);
+  }
+  .hero-visual .layer-lines{
+    position:absolute; inset:0; opacity:0.5;
+    background-image:repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 34px);
+  }
+  .hero-visual .particles{ position:absolute; inset:0; }
+  .hero-visual .particles span{
+    position:absolute; width:3px; height:3px; border-radius:50%;
+    background:var(--accent); opacity:0.55; filter:blur(0.5px);
+    animation:drift 7s ease-in-out infinite;
+  }
+  @keyframes drift{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  .hero-visual .play-wrap{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  }
+  .play-btn{
+    width:66px; height:66px; border-radius:50%;
+    background:rgba(5,8,13,0.55); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.25);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; box-shadow:0 0 40px rgba(40,227,255,0.25);
+  }
+  .hero-visual .tag{
+    position:absolute; bottom:18px; left:18px; right:18px;
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    background:rgba(5,8,13,0.65); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.12); border-radius:100px;
+    padding:9px 16px; font-size:11.5px; color:var(--text-secondary);
+  }
+  .hero-visual .tag strong{ color:var(--text-primary); font-weight:600; }
+  .placeholder-note{
+    margin-top:10px; font-size:11.5px; color:var(--text-tertiary); text-align:center;
+  }
+
+  /* ---------- section shell ---------- */
+  section{ padding:64px 0; position:relative; z-index:1; }
+  .section-head{ max-width:640px; margin-bottom:40px; }
+  .section-head.centered{ margin-left:auto; margin-right:auto; text-align:center; }
+  .section-head h2{ font-size:30px; }
+  @media(min-width:768px){ .section-head h2{ font-size:38px; } }
+  .section-head p{ color:var(--text-secondary); font-size:16px; margin-top:14px; }
+
+  /* ---------- glass card base ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    transition:border-color .25s ease, transform .25s ease, background .25s ease;
+  }
+  .card:hover{ border-color:var(--border-strong); background:var(--surface-strong); transform:translateY(-3px); }
+
+  /* ---------- benefits ---------- */
+  .benefit-grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:700px){ .benefit-grid{ grid-template-columns:repeat(3,1fr); } }
+  .benefit-card{ padding:26px 24px; }
+  .benefit-icon{
+    width:44px; height:44px; border-radius:12px;
+    background:var(--accent-soft); color:var(--accent);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .benefit-card h3{ font-size:17px; font-weight:700; margin-bottom:8px; }
+  .benefit-card p{ font-size:14.5px; color:var(--text-secondary); }
+
+  /* ---------- how it works ---------- */
+  .steps-flow{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:700px){ .steps-flow{ grid-template-columns:repeat(3,1fr); gap:20px; } }
+  .step-item{ padding:28px 24px; position:relative; }
+  .step-num{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--bg-alt); border:1px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center;
+    font-family:ui-monospace,'SF Mono','Roboto Mono',Menlo,Consolas,monospace;
+    font-size:14px; color:var(--accent); margin-bottom:16px;
+  }
+  .step-item h3{ font-size:18px; font-weight:700; margin-bottom:8px; }
+  .step-item p{ font-size:14.5px; color:var(--text-secondary); }
+  .step-arrow{
+    display:none; position:absolute; top:50%; right:-26px; transform:translateY(-50%);
+    color:var(--text-tertiary);
+  }
+  @media(min-width:700px){ .step-item:not(:last-child) .step-arrow{ display:block; } }
+
+  /* ---------- content preview grid ---------- */
+  .content-grid{ display:grid; grid-template-columns:1fr; gap:20px; }
+  @media(min-width:620px){ .content-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(min-width:1000px){ .content-grid{ grid-template-columns:repeat(3,1fr); } }
+  .content-card{ overflow:hidden; }
+  .preview-media{
+    position:relative; aspect-ratio:9/12;
+    background:
+      radial-gradient(circle at 25% 25%, rgba(40,227,255,0.28), transparent 55%),
+      radial-gradient(circle at 80% 75%, rgba(62,141,255,0.25), transparent 55%),
+      linear-gradient(150deg, #0b1420, #070a10);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .preview-media::after{
+    content:""; position:absolute; inset:0;
+    background-image:repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 10px);
+  }
+  .preview-media .play-btn{ width:52px; height:52px; position:relative; z-index:1; }
+  .preview-media .topic-chip{
+    position:absolute; top:14px; left:14px; z-index:1;
+    background:rgba(5,8,13,0.6); border:1px solid rgba(255,255,255,0.14);
+    color:var(--text-secondary); font-size:10.5px; padding:5px 11px; border-radius:100px;
+  }
+  .content-body{ padding:20px 22px 22px; }
+  .content-body h3{ font-size:17px; font-weight:700; margin-bottom:8px; }
+  .content-body p{ font-size:14px; color:var(--text-secondary); margin-bottom:16px; min-height:42px; }
+  .btn-preview{
+    width:100%; padding:11px 18px; font-size:13.5px; border-radius:10px;
+    background:var(--surface-strong); border:1px solid var(--border-strong); color:var(--text-primary);
+    cursor:pointer; transition:background .2s ease, border-color .2s ease;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .btn-preview:hover{ background:var(--accent-soft); border-color:var(--accent-line); color:var(--accent); }
+  .content-note{ text-align:center; margin-top:28px; font-size:13px; color:var(--text-tertiary); }
+
+  /* ---------- founding beta panel ---------- */
+  .beta-panel{
+    text-align:center; padding:56px 26px;
+    border-radius:var(--radius-lg);
+    border:1px solid var(--border-strong);
+    background:
+      radial-gradient(circle at 20% 20%, rgba(40,227,255,0.14), transparent 55%),
+      radial-gradient(circle at 85% 80%, rgba(62,141,255,0.14), transparent 55%),
+      var(--surface);
+  }
+  @media(min-width:768px){ .beta-panel{ padding:72px 60px; } }
+  .beta-panel .badge-pill{ margin-bottom:22px; }
+  .beta-panel h2{ font-size:28px; max-width:680px; margin:0 auto 20px; }
+  @media(min-width:768px){ .beta-panel h2{ font-size:38px; } }
+  .beta-panel p.desc{ max-width:600px; margin:0 auto 32px; color:var(--text-secondary); font-size:16px; }
+  .beta-points{
+    display:grid; grid-template-columns:1fr; gap:12px; max-width:640px; margin:0 auto 36px;
+    text-align:left;
+  }
+  @media(min-width:640px){ .beta-points{ grid-template-columns:1fr 1fr; } }
+  .beta-point{ display:flex; gap:10px; align-items:flex-start; font-size:14.5px; color:var(--text-secondary); }
+  .beta-point svg{ color:var(--accent); flex:none; margin-top:2px; }
+  .beta-panel .btn-row{ justify-content:center; }
+
+  /* ---------- application form ---------- */
+  .apply-shell{
+    max-width:720px; margin:0 auto; padding:40px 26px;
+    border-radius:var(--radius-lg); border:1px solid var(--border);
+    background:var(--surface);
+  }
+  @media(min-width:768px){ .apply-shell{ padding:52px 56px; } }
+  .form-grid{ display:grid; grid-template-columns:1fr; gap:18px; margin-bottom:26px; }
+  @media(min-width:640px){ .form-grid{ grid-template-columns:1fr 1fr; } }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field-full{ grid-column:1/-1; }
+  .field label{ font-size:13px; font-weight:600; color:var(--text-secondary); }
+  .field input[type="text"],
+  .field input[type="email"],
+  .field textarea{
+    background:var(--bg-alt); border:1px solid var(--border-strong);
+    border-radius:var(--radius-sm); padding:13px 15px; color:var(--text-primary);
+    font-size:14.5px; font-family:inherit; resize:vertical;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .field input::placeholder, .field textarea::placeholder{ color:var(--text-tertiary); }
+  .field input:focus, .field textarea:focus{
+    outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  .checkbox-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+  @media(min-width:520px){ .checkbox-grid{ grid-template-columns:repeat(3,1fr); } }
+  .checkbox-item{
+    display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--text-secondary);
+    background:var(--bg-alt); border:1px solid var(--border); border-radius:var(--radius-sm);
+    padding:10px 12px; cursor:pointer; transition:border-color .2s ease, color .2s ease;
+  }
+  .checkbox-item:has(input:checked){ border-color:var(--accent-line); color:var(--text-primary); background:var(--accent-soft); }
+  .checkbox-item input{ accent-color:var(--accent); width:15px; height:15px; flex:none; }
+  .topics-other-input{ margin-top:2px; }
+  .form-note{ font-size:12.5px; color:var(--text-tertiary); text-align:center; margin-top:16px; }
+  .btn-submit{ width:100%; }
+  .field-error{ font-size:12.5px; color:#FF6B6B; margin-top:2px; display:none; }
+  .field-error.show{ display:block; }
+
+  .form-state{
+    text-align:center; padding:20px 0;
+  }
+  .form-state .state-icon{
+    width:56px; height:56px; border-radius:50%; margin:0 auto 18px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .form-state.success .state-icon{ background:var(--accent-soft); color:var(--accent); }
+  .form-state.error .state-icon{ background:rgba(255,107,107,0.12); color:#FF6B6B; }
+  .form-state.setup .state-icon{ background:rgba(255,196,77,0.12); color:#FFC44D; }
+  .form-state h3{ font-size:22px; margin-bottom:10px; }
+  .form-state p{ color:var(--text-secondary); font-size:14.5px; max-width:440px; margin:0 auto; }
+  .form-state code{
+    display:block; margin-top:14px; font-size:12px; color:var(--text-tertiary);
+    background:var(--bg-alt); border:1px solid var(--border); border-radius:8px; padding:10px 14px;
+    font-family:ui-monospace,'SF Mono','Roboto Mono',Menlo,Consolas,monospace; text-align:left;
+    overflow-x:auto;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ max-width:720px; }
+  .faq-item{ border-bottom:1px solid var(--border); }
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; color:var(--text-primary);
+    padding:22px 0; font-size:16px; font-weight:600; font-family:inherit;
+    display:flex; align-items:center; justify-content:space-between; gap:20px; cursor:pointer;
+  }
+  @media(min-width:768px){ .faq-q{ font-size:17px; } }
+  .faq-q .plus{ width:22px; height:22px; flex:none; position:relative; }
+  .faq-q .plus::before, .faq-q .plus::after{
+    content:""; position:absolute; background:var(--text-tertiary);
+    transition:transform .3s ease, background .3s ease;
+  }
+  .faq-q .plus::before{ left:0; top:50%; width:100%; height:1px; transform:translateY(-50%); }
+  .faq-q .plus::after{ top:0; left:50%; height:100%; width:1px; transform:translateX(-50%); }
+  .faq-item.open .plus::after{ transform:translateX(-50%) rotate(90deg); opacity:0; }
+  .faq-item.open .plus::before{ background:var(--accent); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .faq-a-inner{ padding-bottom:22px; color:var(--text-secondary); font-size:14.5px; max-width:600px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--border); padding:44px 0; }
+  .footer-inner{ display:flex; flex-direction:column; gap:20px; align-items:center; text-align:center; }
+  @media(min-width:640px){ .footer-inner{ flex-direction:row; justify-content:space-between; text-align:left; } }
+  .footer-brand{ display:flex; flex-direction:column; gap:6px; align-items:center; }
+  @media(min-width:640px){ .footer-brand{ align-items:flex-start; } }
+  .footer-brand .brand{ font-size:15px; }
+  .footer-brand .tagline{ font-size:13px; color:var(--text-tertiary); }
+  .footer-links{ display:flex; gap:22px; font-size:13.5px; color:var(--text-secondary); }
+  .footer-links a{ display:flex; align-items:center; gap:7px; }
+  .footer-links a:hover{ color:var(--text-primary); }
+  .footer-copy{ font-size:12px; color:var(--text-tertiary); margin-top:6px; }
+
+  /* ---------- sticky mobile CTA ---------- */
+  .sticky-cta{ display:none; }
+  @media(max-width:899px){
+    .sticky-cta{
+      display:block; position:fixed; left:0; right:0; bottom:0; z-index:150;
+      background:rgba(7,11,18,0.92); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-top:1px solid var(--border-strong);
+      padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    }
+    .sticky-cta .btn{ width:100%; padding:14px 20px; font-size:14.5px; }
+  }
+
+  /* ---------- modal (preview) ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:200; background:rgba(4,6,10,0.78);
+    backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:24px;
+    opacity:0; transition:opacity .2s ease;
+  }
+  .modal-overlay.open{ display:flex; opacity:1; }
+  .modal{
+    width:100%; max-width:420px; border-radius:var(--radius-md);
+    border:1px solid var(--border-strong); background:var(--bg-alt);
+    overflow:hidden;
+  }
+  .modal-media{
+    aspect-ratio:9/12; position:relative;
+    background:
+      radial-gradient(circle at 25% 25%, rgba(40,227,255,0.3), transparent 55%),
+      radial-gradient(circle at 80% 75%, rgba(62,141,255,0.28), transparent 55%),
+      linear-gradient(150deg, #0b1420, #070a10);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .modal-body{ padding:22px 24px 26px; }
+  .modal-body h3{ font-size:18px; margin-bottom:8px; }
+  .modal-body p{ font-size:14px; color:var(--text-secondary); margin-bottom:18px; }
+  .modal-close{
+    position:absolute; top:16px; right:16px; z-index:1;
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(5,8,13,0.6); border:1px solid rgba(255,255,255,0.18);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3 3.2 5.5 7 5.5 10.2a5.5 5.5 0 1 1-11 0C6.5 10 9 6.2 12 3Z" stroke="#04141C" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </span>
+      DermaVisuals AI
+    </a>
+    <div class="nav-links">
+      <a href="#how-it-works">How it works</a>
+      <a href="#preview">Content library</a>
+      <a href="#beta">Founding beta</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#apply" class="nav-cta">Apply for Free Beta Access</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="top" class="hero">
+  <div class="glow glow-cyan" style="width:520px;height:520px;top:-120px;left:-160px;"></div>
+  <div class="glow glow-blue" style="width:420px;height:420px;bottom:-160px;right:-120px;"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <div class="badge-pill">Founding Beta — Applications Open</div>
+      <h1 style="margin-top:20px;">Help patients see what you explain.</h1>
+      <p class="sub">DermaVisuals AI turns complex dermatology topics into clear, cinematic, ready-to-post visuals — so patients arrive at consultations already understanding the treatment, not guessing at it.</p>
+      <div class="btn-row">
+        <a href="#apply" class="btn btn-primary btn-lg">Apply for Free Beta Access</a>
+        <a href="#how-it-works" class="btn btn-secondary btn-lg">See how it works</a>
+      </div>
+      <div class="trust-row">
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>No payment required</span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>No credit card</span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5 practices only</span>
+      </div>
+    </div>
+    <div class="hero-visual-col reveal">
+      <!-- Placeholder hero visual. Replace with a cinematic loop or MP4/video poster once available. -->
+      <div class="hero-visual">
+        <div class="layer-lines" aria-hidden="true"></div>
+        <div class="particles" aria-hidden="true">
+          <span style="top:22%;left:30%;animation-delay:0s;"></span>
+          <span style="top:60%;left:65%;animation-delay:1.2s;"></span>
+          <span style="top:40%;left:78%;animation-delay:2.1s;"></span>
+          <span style="top:75%;left:22%;animation-delay:0.6s;"></span>
+          <span style="top:15%;left:60%;animation-delay:1.8s;"></span>
+        </div>
+        <div class="play-wrap">
+          <div class="play-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg>
+          </div>
+        </div>
+        <div class="tag">
+          <span>Skin Barrier Repair — <strong>Preview</strong></span>
+          <span class="mono">0:42</span>
+        </div>
+      </div>
+      <p class="placeholder-note">Cinematic visual placeholder — swap in your own footage</p>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PROBLEM / VALUE ================= -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Problem</div>
+      <h2>Patients can't see what you're describing.</h2>
+      <p>Most dermatology treatments happen beneath the surface — cell turnover, pigment change, collagen response. Explaining it with words alone leaves patients uncertain. Your expertise explains the treatment; visual content helps patients see the process, understand it more clearly, and arrive at consultations with better questions.</p>
+    </div>
+    <div class="benefit-grid">
+      <div class="card benefit-card reveal">
+        <div class="benefit-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/></svg>
+        </div>
+        <h3>Make complex topics easier to understand</h3>
+        <p>Cinematic visuals break down treatments and skin conditions into something patients can actually follow.</p>
+      </div>
+      <div class="card benefit-card reveal">
+        <div class="benefit-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Build confidence before the consultation</h3>
+        <p>Patients who understand a treatment beforehand walk in with clearer expectations and better questions.</p>
+      </div>
+      <div class="card benefit-card reveal">
+        <div class="benefit-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M17 10.5l4-2.5v10l-4-2.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Publish without filming constantly</h3>
+        <p>Keep your social media active with educational content, without booking a shoot or picking up a camera.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section id="how-it-works">
+  <div class="wrap">
+    <div class="section-head centered reveal" style="margin-left:auto;margin-right:auto;">
+      <div class="eyebrow" style="justify-content:center;">How It Works</div>
+      <h2>From library to your feed in three steps.</h2>
+    </div>
+    <div class="steps-flow">
+      <div class="card step-item reveal">
+        <div class="step-num">1</div>
+        <h3>Browse the library</h3>
+        <p>Explore ready-to-post visual content organized by topic and treatment.</p>
+        <svg class="step-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="card step-item reveal">
+        <div class="step-num">2</div>
+        <h3>Download video + caption</h3>
+        <p>Get the video file along with a matching, ready-to-use caption.</p>
+        <svg class="step-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="card step-item reveal">
+        <div class="step-num">3</div>
+        <h3>Publish on your channels</h3>
+        <p>Post it on your clinic's Instagram, website, or wherever you reach patients.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTENT PREVIEW ================= -->
+<section id="preview">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Content Library</div>
+      <h2>A growing library of ready-to-post visuals.</h2>
+      <p>A preview of topics inside the DermaVisuals library. Placeholders shown below — real previews are added as content is filmed.</p>
+    </div>
+    <div class="content-grid" id="contentGrid">
+      <!-- Each .content-card is a self-contained unit. Replace .preview-media
+           with a real <video>/<img> thumbnail per topic when content is ready. -->
+      <div class="card content-card reveal" data-topic="Acne Explained">
+        <div class="preview-media">
+          <span class="topic-chip">Acne</span>
+          <div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg></div>
+        </div>
+        <div class="content-body">
+          <h3>Acne Explained</h3>
+          <p>How breakouts form beneath the skin, and why a consistent routine works.</p>
+          <button class="btn-preview" data-open-preview>Preview</button>
+        </div>
+      </div>
+      <div class="card content-card reveal" data-topic="Understanding Melasma">
+        <div class="preview-media">
+          <span class="topic-chip">Melasma</span>
+          <div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg></div>
+        </div>
+        <div class="content-body">
+          <h3>Understanding Melasma</h3>
+          <p>Visualizing pigment changes deep in the skin and how treatment targets them.</p>
+          <button class="btn-preview" data-open-preview>Preview</button>
+        </div>
+      </div>
+      <div class="card content-card reveal" data-topic="Hair Loss, Visualized">
+        <div class="preview-media">
+          <span class="topic-chip">Hair Loss</span>
+          <div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg></div>
+        </div>
+        <div class="content-body">
+          <h3>Hair Loss, Visualized</h3>
+          <p>The hair growth cycle explained, and why early intervention matters.</p>
+          <button class="btn-preview" data-open-preview>Preview</button>
+        </div>
+      </div>
+      <div class="card content-card reveal" data-topic="How Botox Works">
+        <div class="preview-media">
+          <span class="topic-chip">Botox</span>
+          <div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg></div>
+        </div>
+        <div class="content-body">
+          <h3>How Botox Works</h3>
+          <p>The mechanism behind smoother movement — not just the injection itself.</p>
+          <button class="btn-preview" data-open-preview>Preview</button>
+        </div>
+      </div>
+      <div class="card content-card reveal" data-topic="The Skin Barrier">
+        <div class="preview-media">
+          <span class="topic-chip">Skin Barrier</span>
+          <div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg></div>
+        </div>
+        <div class="content-body">
+          <h3>The Skin Barrier</h3>
+          <p>Barrier damage and repair, explained in a way patients can finally see.</p>
+          <button class="btn-preview" data-open-preview>Preview</button>
+        </div>
+      </div>
+      <div class="card content-card reveal" data-topic="Microneedling in Motion">
+        <div class="preview-media">
+          <span class="topic-chip">Microneedling</span>
+          <div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg></div>
+        </div>
+        <div class="content-body">
+          <h3>Microneedling in Motion</h3>
+          <p>The micro-injury and collagen response that drives visible results.</p>
+          <button class="btn-preview" data-open-preview>Preview</button>
+        </div>
+      </div>
+    </div>
+    <p class="content-note">More topics are added to the library monthly.</p>
+  </div>
+</section>
+
+<!-- ================= FOUNDING BETA ================= -->
+<section id="beta">
+  <div class="wrap">
+    <div class="beta-panel reveal">
+      <div class="badge-pill">Limited Founding Beta</div>
+      <h2>5 practices. One week of free access.<br>No payment or commitment.</h2>
+      <p class="desc">We're selecting 5 dermatology practice owners to test one week of ready-to-post visual content, completely free. In exchange, we ask for honest feedback on the content library before launch.</p>
+      <div class="beta-points">
+        <div class="beta-point">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Full access to the video library for one week
+        </div>
+        <div class="beta-point">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Use content freely on your own social channels
+        </div>
+        <div class="beta-point">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          No payment, no credit card, no contract
+        </div>
+        <div class="beta-point">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Share honest feedback to help shape the launch
+        </div>
+      </div>
+      <div class="btn-row">
+        <a href="#apply" class="btn btn-primary btn-lg">Apply for Free Beta Access</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPLICATION FORM ================= -->
+<section id="apply">
+  <div class="wrap">
+    <div class="section-head centered reveal" style="margin-left:auto;margin-right:auto;">
+      <div class="eyebrow" style="justify-content:center;">Founding Beta Application</div>
+      <h2>Apply for free beta access.</h2>
+      <p>Takes about two minutes. We review applications on a rolling basis and will follow up by email.</p>
+    </div>
+
+    <div class="apply-shell reveal">
+      <form id="applyForm" class="apply-form" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="fullName">Full name</label>
+            <input type="text" id="fullName" name="fullName" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="practiceName">Practice / clinic name</label>
+            <input type="text" id="practiceName" name="practiceName" required autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="social">Instagram handle or website</label>
+            <input type="text" id="social" name="social" required placeholder="@yourclinic or yourclinic.com">
+          </div>
+          <div class="field field-full">
+            <label for="location">City &amp; country</label>
+            <input type="text" id="location" name="location" required placeholder="e.g. Austin, USA">
+          </div>
+          <div class="field field-full">
+            <label for="services">Main services offered</label>
+            <textarea id="services" name="services" rows="3" required placeholder="e.g. medical dermatology, Botox, laser treatments, skincare consultations"></textarea>
+          </div>
+          <div class="field field-full">
+            <label>What content topics would be most useful?</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item"><input type="checkbox" name="topics" value="Acne">Acne</label>
+              <label class="checkbox-item"><input type="checkbox" name="topics" value="Melasma">Melasma</label>
+              <label class="checkbox-item"><input type="checkbox" name="topics" value="Hair Loss">Hair Loss</label>
+              <label class="checkbox-item"><input type="checkbox" name="topics" value="Botox">Botox</label>
+              <label class="checkbox-item"><input type="checkbox" name="topics" value="Skin Barrier">Skin Barrier</label>
+              <label class="checkbox-item"><input type="checkbox" name="topics" value="Microneedling">Microneedling</label>
+            </div>
+            <input type="text" id="topicsOther" name="topicsOther" class="topics-other-input" placeholder="Other topic (optional)">
+            <span class="field-error" id="topicsError">Please select at least one topic, or describe one above.</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-submit" id="submitBtn">
+          <span class="btn-label">Apply for Free Beta Access</span>
+        </button>
+        <p class="form-note">No payment or credit card required. We'll reach out within 3–5 business days.</p>
+      </form>
+
+      <!-- Success state -->
+      <div class="form-state success" id="formSuccess" hidden>
+        <div class="state-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Application received.</h3>
+        <p>Thank you for applying to the DermaVisuals AI founding beta. We review applications on a rolling basis and will email you within 3–5 business days if you're selected.</p>
+      </div>
+
+      <!-- Error state -->
+      <div class="form-state error" id="formError" hidden>
+        <div class="state-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg>
+        </div>
+        <h3>Something went wrong.</h3>
+        <p>We couldn't submit your application. Please try again, or reach us directly at <span data-config="email">hello@dermavisuals.ai</span>.</p>
+      </div>
+
+      <!-- Setup notice (shown only while no backend is connected) -->
+      <div class="form-state setup" id="formSetup" hidden>
+        <div class="state-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M10.3 3.9 2.6 17.6a1.8 1.8 0 0 0 1.6 2.7h15.6a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Form isn't connected yet.</h3>
+        <p>This is a development placeholder — no submission was sent. Connect a form backend (Formspree, Getform, Airtable, or a custom API) by updating <code>SITE_CONFIG.formEndpoint</code> near the bottom of this file.</p>
+        <code>const SITE_CONFIG = { formEndpoint: "..." }</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Questions</div>
+      <h2>Before you apply.</h2>
+    </div>
+    <div class="faq-list reveal" id="faqList">
+      <div class="faq-item">
+        <button class="faq-q">Is this really free?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Selected beta practices receive one week of access to the content library at no cost — no payment or credit card required.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is there any commitment after the beta?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">No. There is no obligation to continue, subscribe, or purchase anything after your beta week ends.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can we use the videos on our practice's social media?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. During the beta, selected practices can freely post the videos and captions on their own social media and website.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is this medical advice?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">No. The content is educational and general in nature, and should be reviewed by your practice before publishing to ensure it fits your patients and standards.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section>
+  <div class="wrap">
+    <div class="beta-panel reveal" style="padding:48px 26px;">
+      <h2 style="font-size:26px;">Ready to help patients see what you explain?</h2>
+      <div class="btn-row">
+        <a href="#apply" class="btn btn-primary btn-lg">Apply for Free Beta Access</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3 3.2 5.5 7 5.5 10.2a5.5 5.5 0 1 1-11 0C6.5 10 9 6.2 12 3Z" stroke="#04141C" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        DermaVisuals AI
+      </div>
+      <div class="tagline">Cinematic patient education for dermatology practices</div>
+    </div>
+    <div class="footer-links">
+      <a data-config="instagramUrl" href="#" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+        <span data-config="instagramHandle">@dermavisuals.ai</span>
+      </a>
+      <a data-config="emailHref" href="#">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-config="email">hello@dermavisuals.ai</span>
+      </a>
+    </div>
+  </div>
+  <div class="wrap footer-copy">© 2026 DermaVisuals AI. All rights reserved.</div>
+</footer>
+
+<!-- ================= MOBILE STICKY CTA ================= -->
+<div class="sticky-cta">
+  <a href="#apply" class="btn btn-primary">Apply for Free Beta Access</a>
+</div>
+
+<!-- ================= PREVIEW MODAL ================= -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal">
+    <div class="modal-media">
+      <div class="modal-close" id="modalClose">✕</div>
+      <div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l12-7-12-7Z"/></svg></div>
+    </div>
+    <div class="modal-body">
+      <h3 id="modalTitle">Content Preview</h3>
+      <p>Full previews are available to selected beta practices. This placeholder will be replaced with real video content.</p>
+      <a href="#apply" class="btn btn-primary" style="width:100%;" id="modalCta">Apply for Free Beta Access</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* =========================================================
+     SITE CONFIG — update these values, the page updates itself
+     ========================================================= */
+  const SITE_CONFIG = {
+    instagramHandle: "@dermavisuals.ai",       // TODO: replace with real handle
+    instagramUrl: "https://instagram.com/dermavisuals.ai", // TODO: replace with real profile URL
+    email: "hello@dermavisuals.ai",             // TODO: replace with real inbox
+    // TODO: replace with a real form backend endpoint, e.g. a Formspree
+    // endpoint ("https://formspree.io/f/xxxxxxx"), Getform, Airtable webhook,
+    // or your own API route. Until this is changed, submissions will show a
+    // clear "not connected" notice instead of a fake success message.
+    formEndpoint: "https://formspree.io/f/YOUR_FORM_ID"
+  };
+
+  document.querySelectorAll('[data-config]').forEach(function(el){
+    const key = el.getAttribute('data-config');
+    const value = SITE_CONFIG[key];
+    if(!value) return;
+    if(key === 'emailHref'){ el.setAttribute('href', 'mailto:' + SITE_CONFIG.email); return; }
+    if(key === 'instagramUrl'){ el.setAttribute('href', value); return; }
+    if(key === 'email' || key === 'instagramHandle'){ el.textContent = value; }
+  });
+
+  // ---------- reveal on scroll ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---------- FAQ accordion ----------
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if(openItem !== item){
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        item.classList.remove('open');
+        a.style.maxHeight = null;
+      }else{
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ---------- content preview modal ----------
+  const previewModal = document.getElementById('previewModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalClose = document.getElementById('modalClose');
+  document.querySelectorAll('[data-open-preview]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.content-card');
+      modalTitle.textContent = card ? card.getAttribute('data-topic') : 'Content Preview';
+      previewModal.classList.add('open');
+    });
+  });
+  function closeModal(){ previewModal.classList.remove('open'); }
+  modalClose.addEventListener('click', closeModal);
+  previewModal.addEventListener('click', (e) => { if(e.target === previewModal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
+  // ---------- application form ----------
+  const form = document.getElementById('applyForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSuccess = document.getElementById('formSuccess');
+  const formError = document.getElementById('formError');
+  const formSetup = document.getElementById('formSetup');
+  const topicsError = document.getElementById('topicsError');
+
+  function setLoading(isLoading){
+    submitBtn.disabled = isLoading;
+    submitBtn.querySelector('.btn-label').textContent = isLoading ? 'Submitting…' : 'Apply for Free Beta Access';
+  }
+
+  function showState(el){
+    [formSuccess, formError, formSetup].forEach(s => s.hidden = true);
+    form.hidden = true;
+    el.hidden = false;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    topicsError.classList.remove('show');
+
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+
+    const checkedTopics = Array.from(form.querySelectorAll('input[name="topics"]:checked')).map(i => i.value);
+    const otherTopic = form.topicsOther.value.trim();
+    if(checkedTopics.length === 0 && !otherTopic){
+      topicsError.classList.add('show');
+      form.topicsOther.focus();
+      return;
+    }
+
+    const payload = {
+      fullName: form.fullName.value.trim(),
+      practiceName: form.practiceName.value.trim(),
+      email: form.email.value.trim(),
+      social: form.social.value.trim(),
+      location: form.location.value.trim(),
+      services: form.services.value.trim(),
+      topics: checkedTopics.concat(otherTopic ? [otherTopic] : []).join(', '),
+      _subject: 'New DermaVisuals AI Founding Beta Application'
+    };
+
+    if(SITE_CONFIG.formEndpoint.includes('YOUR_FORM_ID')){
+      showState(formSetup);
+      return;
+    }
+
+    setLoading(true);
+    try{
+      const res = await fetch(SITE_CONFIG.formEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if(res.ok){
+        showState(formSuccess);
+      }else{
+        showState(formError);
+      }
+    }catch(err){
+      showState(formError);
+    }finally{
+      setLoading(false);
+    }
+  });
+</script>
+
+</body>
+</html>
